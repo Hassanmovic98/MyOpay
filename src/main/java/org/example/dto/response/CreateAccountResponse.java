@@ -10,7 +10,10 @@ public class CreateAccountResponse {
     private String message;
     private String firstName;
     private String lastName;
-    private String email;
-    private int accountNumber;
+    private String emailAddress;
+    private String accountNumber;
+    private int age;
+    private String id;
+    private String phoneNumber;
 
 }
