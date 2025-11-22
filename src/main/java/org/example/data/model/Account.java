@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 public class Account {
     @Id
     private String id;
-    private int accountNumber;
+    private String accountNumber;
     private String firstName;
     private String lastName;
     private Gender gender;
