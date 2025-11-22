@@ -13,4 +13,7 @@ public class CreateAddressResponse {
     private String city;
     private String state;
     private String country;
+
+    public static class CreateTransactionResponse {
+    }
 }
