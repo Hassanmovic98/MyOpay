@@ -10,6 +10,6 @@ public class UpdateAccountResponse {
     private String message;
     private String firstName;
     private String lastName;
-    private String email;
-    private int accountNumber;
+    private String emailAddress;
+    private String accountNumber;
 }
