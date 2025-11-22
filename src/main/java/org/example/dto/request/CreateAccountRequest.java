@@ -7,6 +7,7 @@ import org.example.data.model.Gender;
 @Getter
 @Setter
 public class CreateAccountRequest {
+
     private String firstName;
     private String lastName;
     private Gender gender;
