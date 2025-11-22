@@ -1,16 +1,24 @@
 package org.example.data.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 
+
+@Entity
 @Getter
 @Setter
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    private String accountId;
+    
     private int houseNo;
     private String street;
     private String city;
