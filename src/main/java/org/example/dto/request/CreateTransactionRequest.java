@@ -1,8 +1,15 @@
 package org.example.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.data.model.TransactionType;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateTransactionRequest {
     private String accountId;
     private TransactionType transactionType;

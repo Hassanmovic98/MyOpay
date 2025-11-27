@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface TransactionRepository extends MongoRepository<Transaction, String> {
     List<Transaction> findByAccountId(String accountId);
-    List<Transaction> findByAccountIdAndTransactionType(String accountId, TransactionType transactionType);
+    List<Transaction> findByTransactionIdAndTransactionType(String accountId, TransactionType transactionType);
     List<Transaction> findByAccountIdAndTransactionStatus(String accountId, TransactionStatus transactionStatus);
     Optional<Transaction> findByTransactionId(int transactionId);
-    long countByAccountIdAndCreatedAtGreaterThanEqual(Long accountId, LocalDateTime startOfDay);
+    boolean existsByTransactionId(Integer transactionId);
 }

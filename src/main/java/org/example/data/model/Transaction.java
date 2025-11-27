@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -17,4 +18,6 @@ public class Transaction {
     private double amount;
     @DBRef
     private String AccountId;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

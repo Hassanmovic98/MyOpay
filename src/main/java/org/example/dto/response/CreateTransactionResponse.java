@@ -1,13 +1,14 @@
 package org.example.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.example.data.model.TransactionStatus;
 import org.example.data.model.TransactionType;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 
-@Setter
-@Getter
 
 public class CreateTransactionResponse {
     private String id;
