@@ -5,13 +5,12 @@ import org.example.data.model.TransactionStatus;
 import org.example.data.model.TransactionType;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface TransactionRepository extends MongoRepository<Transaction, String> {
     List<Transaction> findByAccountId(String accountId);
-    List<Transaction> findByTransactionIdAndTransactionType(String accountId, TransactionType transactionType);
+    List<Transaction> findByTransactionIdAndTransactionType(Integer accountId, TransactionType transactionType);
     List<Transaction> findByAccountIdAndTransactionStatus(String accountId, TransactionStatus transactionStatus);
     Optional<Transaction> findByTransactionId(int transactionId);
     boolean existsByTransactionId(Integer transactionId);

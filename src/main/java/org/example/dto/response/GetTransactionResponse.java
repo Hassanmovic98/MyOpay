@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.example.data.model.TransactionType;
 import org.example.data.model.TransactionStatus;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class GetTransactionResponse {
     private TransactionType transactionType;
     private TransactionStatus transactionStatus;
     private double amount;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime  updatedAt;
 
 }

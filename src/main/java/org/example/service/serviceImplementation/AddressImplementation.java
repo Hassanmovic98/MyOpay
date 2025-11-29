@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 
+
+
 @Service
 @AllArgsConstructor
 public class AddressImplementation implements AddressInterface {
@@ -82,11 +84,12 @@ public class AddressImplementation implements AddressInterface {
 
     @Override
     public GetAddressResponse getAddressByAccountId(GetAddressRequest getAddressRequest) {
-        Address address = findAddressById(getAddressRequest.getAccountId());
-        if (address != null) {
-            return getGetAddressResponse(address);
+        Optional<Address> foundAddress = addressRepository.findByAccountId(getAddressRequest.getAccountId());
+        if (foundAddress.isPresent()) {
+            return getGetAddressResponse(foundAddress.get());
         }
         return null;
+
     }
 
     private GetAddressResponse getGetAddressResponse(Address address) {

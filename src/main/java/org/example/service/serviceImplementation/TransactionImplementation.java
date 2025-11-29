@@ -9,7 +9,6 @@ import org.example.dto.request.CreateTransactionRequest;
 import org.example.dto.request.GetTransactionRequest;
 import org.example.dto.response.CreateTransactionResponse;
 import org.example.dto.response.GetTransactionResponse;
-import org.example.Exceptions.DuplicateTransactionException;
 import org.example.Exceptions.InvalidTransactionException;
 import org.example.Exceptions.TransactionNotFoundException;
 import org.example.Mapper.TransactionMapper;
@@ -34,13 +33,13 @@ import java.util.stream.Collectors;
         public CreateTransactionResponse createTransaction(CreateTransactionRequest createTransactionRequest) {
             log.info("Creating transaction for account: {}", createTransactionRequest.getAccountId());
 
-            // Validate request
+            // To Validate request
             validateCreateTransactionRequest(createTransactionRequest);
 
-            // Generate unique transaction ID
+            // To Generate unique transaction ID
             Integer transactionId = generateUniqueTransactionId();
 
-            // Build transaction entity
+            // To Build transaction entity
             Transaction transaction = new Transaction();
             transaction.setTransactionId(transactionId);
             transaction.setAccountId(createTransactionRequest.getAccountId());
@@ -50,12 +49,12 @@ import java.util.stream.Collectors;
             transaction.setCreatedAt(LocalDateTime.now());
             transaction.setUpdatedAt(LocalDateTime.now());
 
-            // Save to database
+            // to Save to database
             Transaction savedTransaction = transactionRepository.save(transaction);
 
             log.info("Transaction created successfully with ID: {}", savedTransaction.getId());
 
-            // Map to response
+            // to  Map to response
             return transactionMapper.toCreateTransactionResponse(
                     savedTransaction,
                     "Transaction created successfully"
@@ -161,9 +160,6 @@ import java.util.stream.Collectors;
                     .collect(Collectors.toList());
         }
 
-        // ============================================
-        // PRIVATE HELPER METHODS
-        // ============================================
 
         private void validateCreateTransactionRequest(CreateTransactionRequest request) {
             if (request.getAccountId() == null || request.getAccountId().isEmpty()) {
@@ -178,8 +174,6 @@ import java.util.stream.Collectors;
                 throw new InvalidTransactionException("Amount must be greater than zero");
             }
 
-            // Add more business validations as needed
-            // e.g., check if account exists, sufficient balance for withdrawals, etc.
         }
 
         private Integer generateUniqueTransactionId() {
@@ -189,7 +183,7 @@ import java.util.stream.Collectors;
             int maxAttempts = 10;
 
             do {
-                // Generate a random 8-digit transaction ID
+                // To Generate a random 8-digits transaction ID
                 transactionId = 10000000 + random.nextInt(90000000);
                 attempts++;
 
