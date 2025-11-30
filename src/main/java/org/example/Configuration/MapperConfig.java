@@ -2,12 +2,10 @@ package org.example.Configuration;
 
 
 
+import org.example.dto.response.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.example.data.model.Account;
-import org.example.dto.response.CreateAccountResponse;
-import org.example.dto.response.GetAccountResponse;
-import org.example.dto.response.UpdateAccountResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,6 +43,17 @@ public class MapperConfig {
         modelMapper.createTypeMap(Account.class, UpdateAccountResponse.class)
                 .addMappings(mapper -> {
                     mapper.skip(UpdateAccountResponse::setMessage);
+                });
+        modelMapper.createTypeMap(Account.class, DeactivateAccountResponse.class)
+                .addMappings(mapper -> {
+                    mapper.skip(DeactivateAccountResponse::setMessage);
+                    mapper.skip(DeactivateAccountResponse::setStatus);
+                });
+
+        modelMapper.createTypeMap(Account.class, ActivateAccountResponse.class)
+                .addMappings(mapper -> {
+                    mapper.skip(ActivateAccountResponse::setMessage);
+                    mapper.skip(ActivateAccountResponse::setStatus);
                 });
     }
 }
