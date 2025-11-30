@@ -1,15 +1,9 @@
 package org.example.Mapper;
 
-
-
-
-
 import lombok.RequiredArgsConstructor;
 import org.example.Constants.ResponseMessages;
 import org.example.data.model.Account;
-import org.example.dto.response.CreateAccountResponse;
-import org.example.dto.response.GetAccountResponse;
-import org.example.dto.response.UpdateAccountResponse;
+import org.example.dto.response.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +16,7 @@ public class AccountMapper {
 
     private final ModelMapper modelMapper;
 
-    public GetAccountResponse toGetAccountResponse(Account account) {
+    public GetAccountResponse mapToGetAccountResponse(Account account) {
         if (account == null) {
             return null;
         }
@@ -31,16 +25,16 @@ public class AccountMapper {
         return response;
     }
 
-    public List<GetAccountResponse> toGetAccountResponseList(List<Account> accounts) {
+    public List<GetAccountResponse> mapToGetAccountResponseList(List<Account> accounts) {
         if (accounts == null || accounts.isEmpty()) {
             return List.of();
         }
         return accounts.stream()
-                .map(this::toGetAccountResponse)
+                .map(this::mapToGetAccountResponse)
                 .collect(Collectors.toList());
     }
 
-    public CreateAccountResponse toCreateAccountResponse(Account account) {
+    public CreateAccountResponse mapToCreateAccountResponse(Account account) {
         if (account == null) {
             return null;
         }
@@ -49,7 +43,7 @@ public class AccountMapper {
         return response;
     }
 
-    public UpdateAccountResponse toUpdateAccountResponse(Account account) {
+    public UpdateAccountResponse mapToUpdateAccountResponse(Account account) {
         if (account == null) {
             return null;
         }
@@ -58,14 +52,24 @@ public class AccountMapper {
         return response;
     }
 
-    public UpdateAccountResponse toUpdateAccountResponse(Account account, String customMessage) {
+
+    public DeactivateAccountResponse mapToDeactivateAccountResponse(Account account) {
         if (account == null) {
             return null;
         }
-        UpdateAccountResponse response = modelMapper.map(account, UpdateAccountResponse.class);
-        response.setMessage(customMessage);
+        DeactivateAccountResponse response = modelMapper.map(account, DeactivateAccountResponse.class);
+        response.setStatus(account.getStatus().toString());
+        response.setMessage(ResponseMessages.Account.DEACTIVATED);
+        return response;
+    }
+
+    public ActivateAccountResponse mapToActivateAccountResponse(Account account) {
+        if (account == null) {
+            return null;
+        }
+        ActivateAccountResponse response = modelMapper.map(account, ActivateAccountResponse.class);
+        response.setStatus(account.getStatus().toString());
+        response.setMessage(ResponseMessages.Account.ACTIVATED);
         return response;
     }
 }
-
-
