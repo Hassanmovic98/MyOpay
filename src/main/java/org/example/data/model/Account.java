@@ -3,7 +3,6 @@ package org.example.data.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -16,7 +15,7 @@ public class Account {
     private String firstName;
     private String lastName;
     private Gender gender;
-    @DBRef
+
     private String addressId;
     private String emailAddress;
     private String phoneNumber;

@@ -12,3 +12,4 @@ public class GetAccountResponse {
     private String emailAddress;
     private String accountNumber;
 }
+

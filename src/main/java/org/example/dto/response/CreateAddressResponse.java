@@ -14,6 +14,5 @@ public class CreateAddressResponse {
     private String state;
     private String country;
 
-    public static class CreateTransactionResponse {
-    }
+
 }
