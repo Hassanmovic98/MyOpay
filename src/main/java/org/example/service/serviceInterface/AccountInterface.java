@@ -1,11 +1,7 @@
 package org.example.service.serviceInterface;
 
-import org.example.dto.request.CreateAccountRequest;
-import org.example.dto.request.GetAccountRequest;
-import org.example.dto.request.UpdateAccountRequest;
-import org.example.dto.response.CreateAccountResponse;
-import org.example.dto.response.GetAccountResponse;
-import org.example.dto.response.UpdateAccountResponse;
+import org.example.dto.request.*;
+import org.example.dto.response.*;
 
 import java.util.List;
 
@@ -17,5 +13,9 @@ public interface AccountInterface {
     GetAccountResponse getAccountByLastName(GetAccountRequest getAccountRequest);
     List<GetAccountResponse> getAccountsByFirstAndLastName(GetAccountRequest getAccountRequest);
     GetAccountResponse getAccountByEmailAddress(GetAccountRequest getAccountRequest);
+    DeactivateAccountResponse deactivateAccount(DeactivateAccountRequest deactivateAccountRequest);
+
+
+    ActivateAccountResponse activateAccount(ActivateAccountRequest activateAccountRequest);
 
 }
