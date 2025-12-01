@@ -16,6 +16,7 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 
     List<Account> findByFirstNameAndLastName(String firstName, String lastName);
 
+    Optional <Account> findByAccountNumber(String accountNumber);
 
 
 }

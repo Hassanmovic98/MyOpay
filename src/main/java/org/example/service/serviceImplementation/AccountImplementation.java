@@ -45,10 +45,23 @@ public class AccountImplementation implements AccountInterface {
     public UpdateAccountResponse updateAccount(UpdateAccountRequest updateAccountRequest) {
         Account account = accountRepository.findById(updateAccountRequest.getAccountId())
                 .orElseThrow(() -> new RuntimeException(ResponseMessages.Account.NOT_FOUND));
+        if (account.getStatus() == AccountStatus.SUSPENDED) {
+            throw new RuntimeException(ResponseMessages.Account.ACCOUNT_LOCKED);
+        }
+
+        if (account.getStatus() == AccountStatus.CLOSED) {
+            throw new RuntimeException("Account is permanently closed and cannot be updated");
+        }
+
+        if (account.getStatus() == AccountStatus.INACTIVE) {
+            throw new RuntimeException("Account is deactivated. Please activate your account first");
+        }
 
         if (updateAccountRequest.getFirstName() != null) {
             account.setFirstName(updateAccountRequest.getFirstName());
         }
+
+
         if (updateAccountRequest.getLastName() != null) {
             account.setLastName(updateAccountRequest.getLastName());
         }
@@ -118,6 +131,12 @@ public class AccountImplementation implements AccountInterface {
         if (account.getStatus() == AccountStatus.INACTIVE) {
             throw new RuntimeException("Account is already deactivated");
         }
+        if (account.getStatus() == AccountStatus.CLOSED) {
+            throw new RuntimeException("Account is permanently closed and cannot be deactivated");
+        }
+        if (account.getStatus() == AccountStatus.SUSPENDED) {
+            throw new RuntimeException("Account is suspended. Please contact support");
+        }
 
         account.setStatus(AccountStatus.INACTIVE);
         account.setDeactivatedAt(LocalDateTime.now());
@@ -135,16 +154,44 @@ public class AccountImplementation implements AccountInterface {
 
         if (account.getStatus() == AccountStatus.ACTIVE) {
             throw new RuntimeException("Account is already active");
+
+        }
+        if (account.getStatus() == AccountStatus.SUSPENDED) {
+            throw new RuntimeException("Account is already suspended.contact support for assistance");
+
         }
 
         account.setStatus(AccountStatus.ACTIVE);
         account.setDeactivatedAt(null);
         account.setDeactivationReason(null);
+        account.setUpdatedAt(LocalDateTime.now());
 
         Account activatedAccount = accountRepository.save(account);
 
         return accountMapper.mapToActivateAccountResponse(activatedAccount);
     }
+    public SuspendAccountResponse suspendAccount(SuspendAccountRequest suspendAccountRequest) {
+        Account account = accountRepository.findByAccountNumber(suspendAccountRequest.getAccountNumber())
+                .orElseThrow(() -> new RuntimeException(ResponseMessages.Account.NOT_FOUND));
+
+        if (account.getStatus() == AccountStatus.SUSPENDED) {
+            throw new RuntimeException("Account is already suspended");
+        }
+
+        if (account.getStatus() == AccountStatus.CLOSED) {
+            throw new RuntimeException("Account is permanently closed");
+        }
+
+        account.setStatus(AccountStatus.SUSPENDED);
+        account.setDeactivatedAt(LocalDateTime.now());
+        account.setDeactivationReason(suspendAccountRequest.getReason());
+        account.setUpdatedAt(LocalDateTime.now());
+
+        Account suspendedAccount = accountRepository.save(account);
+
+        return accountMapper.mapToSuspendAccountResponse(suspendedAccount);
+    }
+
 
 
     private String generateAccountNumber() {
