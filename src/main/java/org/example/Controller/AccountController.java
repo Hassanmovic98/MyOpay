@@ -1,12 +1,8 @@
 package org.example.Controller;
 
 import lombok.AllArgsConstructor;
-import org.example.dto.request.CreateAccountRequest;
-import org.example.dto.request.GetAccountRequest;
-import org.example.dto.request.UpdateAccountRequest;
-import org.example.dto.response.CreateAccountResponse;
-import org.example.dto.response.GetAccountResponse;
-import org.example.dto.response.UpdateAccountResponse;
+import org.example.dto.request.*;
+import org.example.dto.response.*;
 import org.example.service.serviceImplementation.AccountImplementation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +72,16 @@ public class AccountController {
         getAccountRequest.setEmailAddress(email);
         GetAccountResponse getAccountResponse = accountImplementation.getAccountByEmailAddress(getAccountRequest);
         return ResponseEntity.ok(getAccountResponse);
+    }
+    @PostMapping
+    public ResponseEntity<DeactivateAccountResponse> deactivateAccount(@RequestBody DeactivateAccountRequest deactivateAccountRequest){
+        DeactivateAccountResponse deactivateAccountResponse =  accountImplementation.deactivateAccount(deactivateAccountRequest);
+        return ResponseEntity.ok(deactivateAccountResponse);
+    }
+    @PostMapping
+    public ResponseEntity<ActivateAccountResponse> activateAccount(@RequestBody ActivateAccountRequest activateAccountRequest){
+        ActivateAccountResponse activateAccountResponse =  accountImplementation.activateAccount(activateAccountRequest);
+        return ResponseEntity.ok(activateAccountResponse);
     }
 
 }

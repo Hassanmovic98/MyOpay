@@ -71,5 +71,36 @@ public class AccountMapper {
         response.setStatus(account.getStatus().toString());
         response.setMessage(ResponseMessages.Account.ACTIVATED);
         return response;
+
     }
+    public SuspendAccountResponse mapToSuspendAccountResponse(Account account) {
+        if (account == null) {
+            return null;
+        }
+        SuspendAccountResponse response = modelMapper.map(account, SuspendAccountResponse.class);
+        response.setStatus(account.getStatus().toString());
+        response.setMessage("Account suspended successfully");
+        return response;
+    }
+
+    public UnsuspendAccountResponse mapToUnsuspendAccountResponse(Account account) {
+        if (account == null) {
+            return null;
+        }
+        UnsuspendAccountResponse response = modelMapper.map(account, UnsuspendAccountResponse.class);
+        response.setStatus(account.getStatus().toString());
+        response.setMessage("Account unsuspended successfully");
+        return response;
+    }
+
+    public CloseAccountResponse mapToCloseAccountResponse(Account account) {
+        if (account == null) {
+            return null;
+        }
+        CloseAccountResponse response = modelMapper.map(account, CloseAccountResponse.class);
+        response.setStatus(account.getStatus().toString());
+        response.setMessage("Account closed successfully. Submit reopen request if needed.");
+        return response;
+    }
+
 }
