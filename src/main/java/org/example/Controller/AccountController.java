@@ -73,15 +73,17 @@ public class AccountController {
         GetAccountResponse getAccountResponse = accountImplementation.getAccountByEmailAddress(getAccountRequest);
         return ResponseEntity.ok(getAccountResponse);
     }
-    @PostMapping
+    @PostMapping("/deactivate") // URL becomes: /MyOpay/deactivate
     public ResponseEntity<DeactivateAccountResponse> deactivateAccount(@RequestBody DeactivateAccountRequest deactivateAccountRequest){
-        DeactivateAccountResponse deactivateAccountResponse =  accountImplementation.deactivateAccount(deactivateAccountRequest);
+        DeactivateAccountResponse deactivateAccountResponse = accountImplementation.deactivateAccount(deactivateAccountRequest);
         return ResponseEntity.ok(deactivateAccountResponse);
     }
-    @PostMapping
+
+    @PostMapping("/activate") // URL becomes: /MyOpay/activate
     public ResponseEntity<ActivateAccountResponse> activateAccount(@RequestBody ActivateAccountRequest activateAccountRequest){
-        ActivateAccountResponse activateAccountResponse =  accountImplementation.activateAccount(activateAccountRequest);
+        ActivateAccountResponse activateAccountResponse = accountImplementation.activateAccount(activateAccountRequest);
         return ResponseEntity.ok(activateAccountResponse);
     }
-
 }
+
+
